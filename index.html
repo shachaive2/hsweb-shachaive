@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>박상현 | 개인 프로필 웹사이트</title>
+    <!-- Google Fonts: Nanum Gothic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 기본 스타일 초기화 및 변수 설정 */
+        :root {
+            --primary-navy: #0A2540;
+            --sky-blue: #70C1FF;
+            --soft-sky: #E6F4FE;
+            --white: #FFFFFF;
+            --text-dark: #2D3748;
+            --text-gray: #4A5568;
+            --shadow: 0 10px 25px rgba(10, 37, 64, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nanum Gothic', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            color: var(--text-dark);
+            background-color: #F4F9FC;
+            line-height: 1.6;
+        }
+
+        /* 네비게이션 바 */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary-navy);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-gray);
+            font-weight: 700;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--sky-blue);
+        }
+
+        /* 메인 히어로 섹션 (구름 장식 포함) */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg, var(--sky-blue) 0%, var(--primary-navy) 100%);
+            color: var(--white);
+            padding: 160px 2rem 120px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* 구름 모양 배경 장식 */
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 100px;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .cloud::before, .cloud::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 50%;
+        }
+
+        .cloud1 {
+            width: 180px;
+            height: 60px;
+            top: 20%;
+            left: -50px;
+            animation-duration: 22s;
+        }
+        .cloud1::before { width: 80px; height: 80px; top: -30px; left: 30px; }
+        .cloud1::after { width: 60px; height: 60px; top: -20px; right: 30px; }
+
+        .cloud2 {
+            width: 240px;
+            height: 80px;
+            top: 60%;
+            right: -60px;
+            animation-duration: 18s;
+            animation-delay: -5s;
+        }
+        .cloud2::before { width: 100px; height: 100px; top: -40px; left: 40px; }
+        .cloud2::after { width: 80px; height: 80px; top: -30px; right: 40px; }
+
+        @keyframes float {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(40px); }
+            100% { transform: translateX(0); }
+        }
+
+        .profile-img-container {
+            width: 170px;
+            height: 170px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            border: 4px solid var(--white);
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            backdrop-filter: blur(5px);
+        }
+
+        /* 레이아웃 공통 컨테이너 */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-navy);
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background: var(--sky-blue);
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* 카드리스트 스타일 (학력, 경력, 자격) */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 1.8rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--sky-blue);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(10, 37, 64, 0.15);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-date {
+            font-size: 0.85rem;
+            color: var(--sky-blue);
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .card p, .card ul {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+        .card ul li {
+            margin-bottom: 0.4rem;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        .card ul li::before {
+            content: '•';
+            color: var(--sky-blue);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* 성격 및 강점 섹션 */
+        .personality-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .personality-item {
+            background: var(--soft-sky);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .personality-item h4 {
+            color: var(--primary-navy);
+            margin: 0.8rem 0 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* 푸터 */
+        footer {
+            background: var(--primary-navy);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* 모바일용 햄버거 메뉴 및 반응형 설정 */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-navy);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                padding: 1rem 0;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 네비게이션 -->
+    <header>
+        <nav>
+            <a href="#" class="logo">PARK SANGHYUN</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#about">소개</a></li>
+                <li><a href="#education">학력</a></li>
+                <li><a href="#experience">경력</a></li>
+                <li><a href="#certificates">자격증</a></li>
+                <li><a href="#personality">성격 및 강점</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 히어로 섹션 (구름 배경) -->
+    <section class="hero" id="about">
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+        
+        <div class="hero-content">
+            <div class="profile-img-container">
+                <!-- Unsplash 상업용 무료 라이선스 이미지 (IT/개발자 느낌 프로필) -->
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="박상현 프로필 이미지" class="profile-img">
+            </div>
+            <h1>안녕하세요, 박상현입니다 👋</h1>
+            <p>창의적인 아이디어로 미래를 코딩하는 AI·SW 개발자</p>
+            <span class="badge">🏫 한신대학교 AI·SW대학 재학 중</span>
+        </div>
+    </section>
+
+    <div class="container">
+
+        <!-- 학력 섹션 -->
+        <section id="education">
+            <h2 class="section-title">🎓 학력 (Education)</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-icon">🏫</div>
+                    <h3>한신대학교 (Hanshin Univ.)</h3>
+                    <span class="card-date">2023.03 - 현재</span>
+                    <p><strong>AI·SW대학 재학 중</strong></p>
+                    <p>웹프로그래밍, 인공지능 기초, 소프트웨어 공학 전공 심화 과정 이수 중</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 경력 및 활동 섹션 -->
+        <section id="experience">
+            <h2 class="section-title">💼 경력 및 활동 (Experience)</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-icon">💻</div>
+                    <h3>웹프로그래밍 프로젝트</h3>
+                    <span class="card-date">2026.03 - 진행 중</span>
+                    <ul>
+                        <li>HTML5, CSS3, JavaScript를 활용한 반응형 웹 제작</li>
+                        <li>사용자 경험(UX) 중심의 인터페이스 설계</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🚀</div>
+                    <h3>AI·SW 동아리 및 스터디</h3>
+                    <span class="card-date">2024.09 - 현재</span>
+                    <ul>
+                        <li>알고리즘 문제 해결 및 코드 리뷰 진행</li>
+                        <li>팀 기반 미니 프로젝트 협업 경험</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 자격증 섹션 -->
+        <section id="certificates">
+            <h2 class="section-title">📜 자격 및 기술 (Certificates & Skills)</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-icon">🏆</div>
+                    <h3>보유 자격증</h3>
+                    <span class="card-date">취득 및 준비</span>
+                    <ul>
+                        <li>정보처리기능사 / 산업기사 (준비 중)</li>
+                        <li>SQLD (SQL 개발자)</li>
+                        <li>공인 어학 성적</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3>Tech Skills</h3>
+                    <span class="card-date">사용 가능한 기술</span>
+                    <ul>
+                        <li><strong>Web:</strong> HTML5, CSS3, JavaScript (ES6+)</li>
+                        <li><strong>Language:</strong> Python, C / C++</li>
+                        <li><strong>Tools:</strong> Git, GitHub, VS Code</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 성격 및 강점 섹션 -->
+        <section id="personality">
+            <h2 class="section-title">✨ 성격 및 강점 (Personality)</h2>
+            <div class="personality-grid">
+                <div class="personality-item">
+                    <div style="font-size: 2.5rem;">🔍</div>
+                    <h4>꼼꼼함과 탐구열</h4>
+                    <p>작은 디테일도 놓치지 않고 문제가 해결될 때까지 파고드는 집요함이 있습니다.</p>
+                </div>
+                <div class="personality-item">
+                    <div style="font-size: 2.5rem;">🤝</div>
+                    <h4>원활한 소통 능과 협업</h4>
+                    <p>팀원들의 의견을 경청하고 조화롭게 프로젝트를 이끌어가는 긍정적 에너지를 가졌습니다.</p>
+                </div>
+                <div class="personality-item">
+                    <div style="font-size: 2.5rem;">💡</div>
+                    <h4>도전적인 유연함</h4>
+                    <p>새로운 기술이나 프레임워크를 배우는 데 두려움이 없고 빠르게 적응합니다.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- 푸터 -->
+    <footer>
+        <p>&copy; 2026 Park Sanghyun. All rights reserved.</p>
+        <p>Hanshin University AI·SW College | Web Programming Course</p>
+    </footer>
+
+    <!-- 자바스크립트 -->
+    <script>
+        // 모바일 네비게이션 토글 기능
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // 메뉴 클릭 시 모바일 메뉴 자동으로 닫기
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // 스크롤 시 상단 메뉴바 백그라운드 효과
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+            }
+        });
+    </script>
+</body>
+</html>
